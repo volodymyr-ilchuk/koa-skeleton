@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name cvlt-v.digital;
+    client_max_body_size 50M;
+    root /..../cvlt-api;
+    index index.html index.htm;
+
+    location / {
+      proxy_pass http://localhost:3000;
+    }
+
+    location /api/ {
+      proxy_pass http://localhost:3000;
+    }
+
+    location ~ ^/api/docs(.*)$ {
+      alias /..../public/static/docs$1;
+    }
+}

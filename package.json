@@ -1,0 +1,60 @@
+{
+  "name": "cvlt",
+  "version": "1.0.0",
+  "description": "project based on: - koa.js - knex.js",
+  "private": "true",
+  "scripts": {
+    "listen": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Volodia",
+  "license": "ISC",
+  "dependencies": {
+    "bull": "^3.18.0",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.1",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-joi-router": "^6.0.2",
+    "koa-mount": "^4.0.0",
+    "koa-static": "^5.0.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.0",
+    "objection": "^2.2.3",
+    "performance-now": "^2.1.0",
+    "pg": "^8.2.1",
+    "swagger-jsdoc": "^4.0.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "delay": "500",
+    "ignore": [
+      "node_modules/"
+    ],
+    "watch": [
+      "database/",
+      "errors/",
+      "middlewares/",
+      "routes/",
+      "services/",
+      "models/",
+      "knexfile.js",
+      "server.js",
+      "queues/",
+      "repositories",
+      ".env",
+      "database-connection.js"
+    ],
+    "ext": "js"
+  }
+}
