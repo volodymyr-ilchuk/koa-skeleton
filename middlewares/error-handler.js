@@ -6,12 +6,14 @@ module.exports = async (ctx, next) => {
     console.log(error);
 
     switch (error.name) {
-    // TODO
     case 'ValidationError':
       ctx.status = 400;
       ctx.body = {
         type: error.name,
-        errors: error.errors.errors
+        errors: error.details.map(obj => ({
+          message: obj.message,
+          context: obj.context
+        }))
       };
       return; // якщо після switch потрібно щось виконувати то замисть return пишем break
     case 'HttpError':

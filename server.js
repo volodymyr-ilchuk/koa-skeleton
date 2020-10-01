@@ -14,12 +14,13 @@ app.use(bodyParser());
 app.use(require('./middlewares/error-handler'));
 
 app.use(require('./routes/auth.js'));
+app.use(require('./routes/swagger.js'));
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(mount('/uploads', serve(path.join(process.cwd(), '/uploads'), { defer: true })));
+  app.use(mount('/uploads', serve(path.join(process.cwd(), '/static/uploads'), { defer: true })));
 }
 if (process.env.NODE_ENV !== 'production') {
-  app.use(mount('/docs', serve(path.join(process.cwd(), '/docs'), { defer: true })));
+  app.use(mount('/docs', serve(path.join(process.cwd(), '/static/docs'), { defer: true })));
 }
 
 app.listen(process.env.NODE_PORT);

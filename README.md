@@ -34,7 +34,7 @@ git clone https://github.com/volodymyr-ilchuk/online-shop.git по https дос�
 git pull origin master стягує нові зміни (оновлення) з віддаленого репозиторія
 git remote -v перевірка до якого URL ми підключені
 git remote remove origin видаляє поточну URL
-git remote add origin git@github.com:volodymyr-ilchuk/online-shop.git добавляє введену URL
+git remote add origin git@github.com:volodymyr-ilchuk/online-shop.git добавляє введену URL git@github.com:volodymyr-ilchuk/cvlt.git
 ```
 
 ## Install packages in project

@@ -6,6 +6,8 @@ const Router = require('koa-joi-router');
 // const SingleValidationError = require('../../../shared/core/errors/SingleValidationError');
 // const constants = require('../../../shared/constants');
 // const { deleteQuestionBookmarkRecombee } = require('../../queue/queues');
+const HttpError = require('../errors/http-error');
+const { createToken } = require('../services/jwt');
 
 const User = require('../models/User');
 
@@ -14,31 +16,32 @@ const router = Router();
 /**
  * @swagger
  * paths:
- *  /bookmarks:
- *    delete:
+ *  /api/login:
+ *    post:
  *      tags:
- *        - Bookmarks
- *      summary: Delete bookmarks
- *      description: Delete bookmarks
- *      security:
- *        - ApiKeyAuth: []
+ *        - Authorization
+ *      summary: Login
+ *      description: Login
  *      parameters:
  *        - in: body
  *          name: body
  *          schema:
  *            type: object
- *            required: [bookmarksIds]
+ *            required: [email, password]
  *            properties:
- *              bookmarksIds:
- *                type: array
- *                items:
- *                   type: integer
- *                   default: 1
+ *              email:
+ *                type: string
+ *                default: 'rex3@mail.com'
+ *              password:
+ *                type: string
+ *                default: '123456'
  *      responses:
  *        200:
  *          $ref: "#/responses/200"
  *        400:
- *          $ref: "#/responses/200"
+ *          $ref: "#/responses/400"
+ *        401:
+ *          $ref: "#/responses/401"
  */
 router.route({
   method: 'POST',
@@ -58,11 +61,21 @@ router.route({
       email,
       password
     }).first();
+    // TODO створити новий репозиторій для костяка проекту і залити його
+    // нове завдання нова вітка
+    // добавить бкріпт
+    // логіка сервіс репозитирій
+    // розібраться з гіт хабом по ссаш
+    // добавить рефреш токен
     console.log(login);
-
-    ctx.body = {};
+    if (!login) {
+      throw new HttpError('Invalid login', 401);
+    }
+    const token = await createToken(login);
+    ctx.body = { token };
     ctx.status = 200;
   }
+
 });
 
 module.exports = router
