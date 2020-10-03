@@ -1,15 +1,6 @@
 const Router = require('koa-joi-router');
-// const BookmarkRepository = require('../../../shared/repositories/BookmarkRepository');
-// const BookmarkService = require('../../../shared/services/BookmarkService');
-// const authenticated = require('../../../shared/middlewares/authenticated');
-// const checkNormal = require('../../../shared/middlewares/checkNormal');
-// const SingleValidationError = require('../../../shared/core/errors/SingleValidationError');
-// const constants = require('../../../shared/constants');
-// const { deleteQuestionBookmarkRecombee } = require('../../queue/queues');
-const HttpError = require('../errors/http-error');
-const { createToken } = require('../services/jwt');
 
-const User = require('../models/User');
+const { login } = require('../services/customs/auth-service');
 
 const router = Router();
 
@@ -53,25 +44,19 @@ router.route({
       password: Router.Joi.string().required().min(6).max(20) // TODO перевірка на спецсимволи regex
     }
   },
+  // TODO створити новий репозиторій для костяка проекту і залити його
+  // нове завдання нова вітка
+  // логіка сервіс репозитирій
+  // розібраться з гіт хабом по ссаш
+  // добавить рефреш токен
+
   // handler: async function handler(ctx) {}
   // handler: async ctx => {}
   async handler(ctx) {
     const { email, password } = ctx.request.body;
-    const login = await User.query().where({
-      email,
-      password
-    }).first();
-    // TODO створити новий репозиторій для костяка проекту і залити його
-    // нове завдання нова вітка
-    // добавить бкріпт
-    // логіка сервіс репозитирій
-    // розібраться з гіт хабом по ссаш
-    // добавить рефреш токен
-    console.log(login);
-    if (!login) {
-      throw new HttpError('Invalid login', 401);
-    }
-    const token = await createToken(login);
+
+    const token = await login(email, password);
+
     ctx.body = { token };
     ctx.status = 200;
   }
