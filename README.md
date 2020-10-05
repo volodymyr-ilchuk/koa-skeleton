@@ -1,4 +1,4 @@
-# Online-shop
+# CVLT
 
 project based on:
 - koa.js
