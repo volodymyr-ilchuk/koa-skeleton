@@ -7,7 +7,7 @@ exports.up = async knex => {
   await knex.schema.createTable('users_refresh_tokens', t => {
     t.integer('user_id').notNullable();
     t.string('token', 100).notNullable().unique();
-    t.timestamp('expired_date').notNullable();
+    t.bigInteger('expired_date').notNullable();
   });
 };
 

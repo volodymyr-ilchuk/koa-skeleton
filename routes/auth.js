@@ -54,9 +54,9 @@ router.route({
   async handler(ctx) {
     const { email, password } = ctx.request.body;
 
-    const token = await login(email, password);
+    const result = await login(email, password);
 
-    ctx.body = { token };
+    ctx.body = result;
     ctx.status = 200;
   }
 

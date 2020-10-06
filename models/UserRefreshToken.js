@@ -8,6 +8,10 @@ class UserRefreshToken extends Model {
   static get relationMappings() {
 
   }
+
+  static get idColumn() {
+    return 'user_id';
+  }
 }
 
 module.exports = UserRefreshToken;
