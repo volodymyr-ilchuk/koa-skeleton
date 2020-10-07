@@ -41,13 +41,26 @@ router.route({
     type: 'json',
     body: {
       email: Router.Joi.string().required().email(),
-      password: Router.Joi.string().required().min(6).max(20) // TODO перевірка на спецсимволи regex
+      password: Router.Joi.string().required().min(6).max(20)
+        .regex(/^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%])[a-zA-Z0-9@#$%]+$/)
+        .error(errors => {
+          errors.forEach(err => {
+            switch (err.type) {
+            case 'string.regex.base':
+              err.message = 'Your password must include: 1 upper case letter, one lower case letter,'
+              + ' one number, one spec symbol @#$%';
+              break;
+            default:
+              break;
+            }
+          });
+          return errors;
+        })
     }
   },
   // TODO створити новий репозиторій для костяка проекту і залити його
   // нове завдання нова вітка
   // розібраться з гіт хабом по ссаш
-  // добавить рефреш токен
 
   // handler: async function handler(ctx) {}
   // handler: async ctx => {}
